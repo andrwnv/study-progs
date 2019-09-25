@@ -1,7 +1,8 @@
 package com.company;
 
+import Debugger.Debugger;
+
 import java.util.ArrayList;
-import java.util.Collections;
 
 /*
     Описать класс, реализующий бинарное дерево, обладающее возможностью добавления новых элементов,
@@ -14,29 +15,25 @@ import java.util.Collections;
 */
 
 class BinaryTree<T> {
+
     private ArrayList<T> heap;
 
     BinaryTree() {
+        Debugger.enableDebugger();
         heap = new ArrayList<T>();
     }
 
-    private T getParent(int child_index) {
-        return heap.get( (child_index - 1) / 2 );
-    }
+    private T getParent(int child_index) { return heap.get( (child_index - 1) / 2 ); }
 
-    private T getLeftChild(int parent_index) {
-        return heap.get(2 * parent_index + 1);
-    }
+    private T getLeftChild(int parent_index) { return heap.get( 2 * parent_index + 1 ); }
 
-    private T getRightChild(int parent_index) {
-        return heap.get(2 * parent_index + 2);
-    }
+    private T getRightChild(int parent_index) { return heap.get( 2 * parent_index + 2 ); }
 
-    private void siftUp() {
+    private void siftUp(int item_index) {
 
     }
 
-    private void siftDown() {
+    private void siftDown(int item_index) {
 
     }
 
@@ -44,20 +41,26 @@ class BinaryTree<T> {
 
     }
 
-    public int getSize() {
-        return 0;
-    }
+    public int getSize() { return 0; }
 
-    public Boolean empty() {
-        return true;
-    }
+    public boolean empty() { return true; }
 
-    public void pushItem(T item) {
+    public void pushBack(T item) {
+        heap.add(item);
+        siftUp( heap.size() - 1 );
 
+        Debugger.log("[pushBack: INFO] called.");
     }
 
     public void popBack() {
+        try {
+            heap.remove( heap.remove(heap.size()) );
+        } catch (IndexOutOfBoundsException ex) {
+            Debugger.log("[popBack: CRITICAL] Trying delete elem from empty contain!");
+            System.exit(2);
+        }
 
+        Debugger.log("[pushBack: INFO] popBack func called.");
     }
 
     public void erase(int item_position) {
