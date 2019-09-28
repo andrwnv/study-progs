@@ -1,8 +1,6 @@
-package com.company;
+package BinaryTree;
 
 import Debugger.Debugger;
-
-import java.util.ArrayList;
 
 /*
     Описать класс, реализующий бинарное дерево, обладающее возможностью добавления новых элементов,
@@ -14,47 +12,52 @@ import java.util.ArrayList;
     проверку всех методов класса. Предусмотреть возможность формирования словаря из файла и с клавиатуры.
 */
 
-class BinaryTree<T> {
 
-    private ArrayList<T> heap;
+public class BinaryTree<T> {
 
-    BinaryTree() {
+    private Node head;
+    private int  tree_size;
+
+    public BinaryTree() {
         Debugger.enableDebugger();
-        heap = new ArrayList<T>();
+
+        head      = null;
+        tree_size = 0;
     }
 
-    private T getParent(int child_index) { return heap.get( (child_index - 1) / 2 ); }
-
-    private T getLeftChild(int parent_index) { return heap.get( 2 * parent_index + 1 ); }
-
-    private T getRightChild(int parent_index) { return heap.get( 2 * parent_index + 2 ); }
-
-    private void siftUp(int item_index) {
-
+    public BinaryTree(Node tree_node) {
+        head = tree_node;
+        ++tree_size;
     }
 
-    private void siftDown(int item_index) {
-
+    public int getSize() {
+        return tree_size;
     }
 
-    private void restoreTree() {
-
+    public boolean empty() {
+        return tree_size == 0;
     }
-
-    public int getSize() { return 0; }
-
-    public boolean empty() { return true; }
 
     public void pushBack(T item) {
-        heap.add(item);
-        siftUp( heap.size() - 1 );
-
         Debugger.log("[pushBack: INFO] called.");
+
+
+    }
+
+    public void pushBack(Node<T> node) {
+        if (head == null){
+            head = node;
+            return;
+        }
+
+        if (node.getData() > head.getData()) {
+
+        }
     }
 
     public void popBack() {
         try {
-            heap.remove( heap.remove(heap.size()) );
+            // TODO: delete past elem
         } catch (IndexOutOfBoundsException ex) {
             Debugger.log("[popBack: CRITICAL] Trying delete elem from empty contain!");
             System.exit(2);
