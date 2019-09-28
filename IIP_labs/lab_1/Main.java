@@ -1,4 +1,4 @@
-package com.company;
+import BinaryTree.BinaryTree;
 
 public class Main {
 
