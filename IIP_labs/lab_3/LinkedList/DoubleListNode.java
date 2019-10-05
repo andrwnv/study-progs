@@ -1,8 +1,10 @@
 package LinkedList;
 
+import LinkedList.ListExceptions.List_TryingDeleteFromEmptyContain;
+
 public class DoubleListNode<T> implements INode<T> {
 
-    private T       m_data;
+    private T                 m_data;
     private DoubleListNode<T> m_next;
     private DoubleListNode<T> m_prev;
 
@@ -27,9 +29,30 @@ public class DoubleListNode<T> implements INode<T> {
         m_prev = prev_node;
     }
 
+    public void setNext(DoubleListNode<T> node) {
+        m_next = node;
+    }
+
+    public void setPrev(DoubleListNode<T> node) {
+        m_prev = node;
+    }
+
+    public DoubleListNode<T> getNext() {
+        return m_next;
+    }
+
+    public DoubleListNode<T> getPrev() {
+        return m_prev;
+    }
+
     @Override
     public T getValue() {
         return m_data;
+    }
+
+    @Override
+    public void setValue(T data) {
+        m_data = data;
     }
 
 }

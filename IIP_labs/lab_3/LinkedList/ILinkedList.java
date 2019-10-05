@@ -6,16 +6,14 @@ public interface ILinkedList<T> {
     void    clear();
     boolean empty();
 
-    void    insert(int position, T value);
-    void    insert(int position, ILinkedList init_list);
-
-    void    erase(T value);
-    void    erase(int position);
+    boolean insert(int position, T value) throws Exception;
+    boolean erase(int position) throws Exception;
 
     void    push_back(T value);
     void    push_front(T value);
 
-    T       pop_back();
-    T       pop_front();
+    T       pop_back() throws Exception;
+    T       pop_front() throws Exception;
 
+    INode   getHead();
 }
