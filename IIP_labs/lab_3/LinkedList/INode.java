@@ -1,5 +1,6 @@
 package LinkedList;
 
 public interface INode<T> {
-    T getValue();
+    void setValue(T value);
+    T    getValue();
 }
