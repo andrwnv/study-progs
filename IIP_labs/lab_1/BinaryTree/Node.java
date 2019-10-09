@@ -1,12 +1,12 @@
 package BinaryTree;
 
-class Node<T> {
+class Node<T extends Comparable<T>> {
 
     private T    m_data;
-    private Node m_left_child;
-    private Node m_right_child;
+    private Node<T> m_left_child;
+    private Node<T> m_right_child;
 
-    public Node(Node right_child, Node left_child, T data) {
+    public Node(Node<T> right_child, Node<T> left_child, T data) {
         m_data = data;
 
         m_left_child  = left_child;
@@ -20,11 +20,11 @@ class Node<T> {
         m_left_child  = null;
     }
 
-    public Node getLeftChild() {
+    public Node<T> getLeftChild() {
         return m_left_child;
     }
 
-    public Node getRightChild() {
+    public Node<T> getRightChild() {
         return m_right_child;
     }
 
@@ -32,11 +32,11 @@ class Node<T> {
         return m_data;
     }
 
-    public void setLeftChild(Node left_child) {
+    public void setLeftChild(Node<T> left_child) {
         m_left_child = left_child;
     }
 
-    public void setRightChild(Node right_child) {
+    public void setRightChild(Node<T> right_child) {
         m_right_child = right_child;
     }
 

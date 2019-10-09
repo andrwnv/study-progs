@@ -1,18 +1,30 @@
-package com.company;
+package Dictionary;
 
+import BinaryTree.BinaryTree;
 import Debugger.Debugger;
 
 import java.io.*;
 
 public class Dictionary {
 
-    private static class DictNode {
-        public String m_word = "";
-        public String m_word_translation = "";
+    private static class DictNode implements Comparable<DictNode> {
+        private String m_word;
+        private String m_word_translation;
+
+        DictNode() {
+            m_word             = "";
+            m_word_translation = "";
+        }
 
         DictNode(String word, String word_translation) {
             m_word = word;
             m_word_translation = word_translation;
+        }
+
+        @Override
+        public int compareTo(DictNode dictNode) {
+            // TODO: compare
+            return 0;
         }
     }
 
@@ -46,7 +58,7 @@ public class Dictionary {
     }
 
     public void addDictData(String word, String word_translation) {
-        dict_data.pushBack( new DictNode(word, word_translation) );
+        dict_data.addItem( new DictNode(word, word_translation) );
     }
 
 }
