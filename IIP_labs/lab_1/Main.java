@@ -1,5 +1,4 @@
 import BinaryTree.BinaryTree;
-import org.junit.platform.engine.support.hierarchical.Node;
 
 public class Main {
 
@@ -8,11 +7,10 @@ public class Main {
         test.addItem(10);
         test.addItem(55);
         test.addItem(2);
-        test.addItem(0);
+        test.addItem(3);
 
-        test.deleteItem(0);
-        test.DFS_print(test.getHead());
+        test.deleteItem(10);
 
-        System.out.println( test.searchItem(2) );
+        test.DFS_print();
     }
 }
