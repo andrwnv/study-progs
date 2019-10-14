@@ -2,7 +2,7 @@ package BinaryTree;
 
 import Debugger.Debugger;
 
-public class BinaryTree<T extends Comparable<T>> {
+public class BinaryTree< T extends Comparable<T> > {
 
     private Node<T> m_head;
     private int     m_size;
@@ -10,7 +10,7 @@ public class BinaryTree<T extends Comparable<T>> {
     public BinaryTree() {
         Debugger.enableDebugger();
 
-        m_head      = null;
+        m_head = null;
         m_size = 0;
     }
 
@@ -19,20 +19,12 @@ public class BinaryTree<T extends Comparable<T>> {
         ++m_size;
     }
 
-    public Node<T> getHead() {
-        return m_head;
-    }
-
-    public void setHead(Node<T> new_head) {
-        m_head = new_head;
+    public boolean empty() {
+        return m_head == null;
     }
 
     public int getSize() {
         return m_size;
-    }
-
-    public boolean empty() {
-        return m_head == null;
     }
 
     public void clear() {
@@ -56,65 +48,75 @@ public class BinaryTree<T extends Comparable<T>> {
         ++m_size;
     }
 
-    private T findSmallestValue(Node<T> curr_item) {
-        return curr_item.getLeftChild() == null ? curr_item.getData()
-                                                : findSmallestValue(curr_item.getLeftChild());
-    }
-
     private Node<T> deleteItem(Node<T> curr_item, T value) {
         if (curr_item == null)
             return null;
 
-        // TODO somewhere BUG
+        if (value == curr_item.getData()) {
+            if (curr_item.getLeftChild() == null && curr_item.getRightChild() == null)
+                return null;
 
-        if (value.compareTo(curr_item.getData()) < 0)
-            curr_item.setLeftChild( deleteItem(curr_item.getLeftChild(), value) );
-        else if (value.compareTo(curr_item.getData()) > 0)
-            curr_item.setRightChild( deleteItem(curr_item.getRightChild(), value) );
-        else
-        {
-            if (curr_item.getLeftChild() == null)
-                return curr_item.getRightChild();
-            else if (curr_item.getRightChild() == null)
+            if (curr_item.getRightChild() == null)
                 return curr_item.getLeftChild();
+            else if (curr_item.getLeftChild() == null)
+                return curr_item.getRightChild();
 
-            curr_item.setData(findSmallestValue(curr_item.getRightChild()));
+            T min_val = findMin( curr_item.getRightChild() );
+            curr_item.setData(min_val);
+            curr_item.setRightChild( deleteItem(curr_item.getRightChild(), min_val) );
 
-            curr_item.setRightChild( deleteItem(curr_item.getRightChild(), curr_item.getData()) );
+            return curr_item;
+        }
+        if (value.compareTo(curr_item.getData()) < 0) {
+            curr_item.setLeftChild( deleteItem(curr_item.getLeftChild(), value) );
+            return curr_item;
         }
 
+        curr_item.setRightChild( deleteItem(curr_item.getRightChild(), value) );
         return curr_item;
     }
 
+    private T findMin(Node<T> curr_item) {
+        return curr_item.getLeftChild() == null ? curr_item.getData()
+                                                : findMin( curr_item.getLeftChild() );
+    }
+
     public void deleteItem(T value) {
+        if (m_head == null)
+            return;
+
         m_head = deleteItem(m_head, value);
+        --m_size;
     }
 
     public T searchItem(T value) {
         return searchItem(m_head, value);
     }
 
-    private T searchItem(Node<T> current, T value) {
-        if (current == null)
+    private T searchItem(Node<T> curr_item, T value) {
+        if (curr_item == null)
             return null;
 
-        if (value == current.getData())
-            return current.getData();
+        if (value == curr_item.getData())
+            return curr_item.getData();
 
-        return (value.compareTo(current.getData()) < 0 ? searchItem(current.getLeftChild(), value)
-                : searchItem(current.getRightChild(), value));
+        return value.compareTo(curr_item.getData()) < 0 ? searchItem(curr_item.getLeftChild(), value)
+                                                        : searchItem(curr_item.getRightChild(), value);
     }
 
-    public void DFS_print(Node<T> node) {
+    public void DFS_print() {
+        DFS_print(m_head);
+    }
+
+    private void DFS_print(Node<T> node) {
         if (node == null)
             return;
 
         print(node.getData().toString());
-        DFS_print(node.getLeftChild());
-        DFS_print(node.getRightChild());
+
+        DFS_print( node.getLeftChild()  );
+        DFS_print( node.getRightChild() );
     }
 
-    private void print(String str) {
-        System.out.println(str);
-    }
+    private void print(String str) { System.out.println(str); }
 }

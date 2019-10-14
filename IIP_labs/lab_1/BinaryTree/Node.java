@@ -13,34 +13,34 @@ class Node<T extends Comparable<T>> {
         m_right_child = right_child;
     }
 
-    public Node(T data) {
+    Node(T data) {
         m_data = data;
 
         m_right_child = null;
         m_left_child  = null;
     }
 
-    public Node<T> getLeftChild() {
+    Node<T> getLeftChild() {
         return m_left_child;
     }
 
-    public Node<T> getRightChild() {
+    Node<T> getRightChild() {
         return m_right_child;
     }
 
-    public T getData() {
+    T getData() {
         return m_data;
     }
 
-    public void setLeftChild(Node<T> left_child) {
+    void setLeftChild(Node<T> left_child) {
         m_left_child = left_child;
     }
 
-    public void setRightChild(Node<T> right_child) {
+    void setRightChild(Node<T> right_child) {
         m_right_child = right_child;
     }
 
-    public void setData(T data) {
+    void setData(T data) {
         m_data = data;
     }
 
