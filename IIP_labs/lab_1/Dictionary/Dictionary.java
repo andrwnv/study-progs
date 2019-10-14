@@ -3,30 +3,13 @@ package Dictionary;
 import BinaryTree.BinaryTree;
 import Debugger.Debugger;
 
-import java.io.*;
+import java.io.FileReader;
+import java.io.BufferedReader;
+
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Dictionary {
-
-    private static class DictNode implements Comparable<DictNode> {
-        private String m_word;
-        private String m_word_translation;
-
-        DictNode() {
-            m_word             = "";
-            m_word_translation = "";
-        }
-
-        DictNode(String word, String word_translation) {
-            m_word = word;
-            m_word_translation = word_translation;
-        }
-
-        @Override
-        public int compareTo(DictNode dictNode) {
-            // TODO: compare
-            return 0;
-        }
-    }
 
     private BinaryTree<DictNode> dict_data;
 
