@@ -1,10 +1,10 @@
 package Dictionary;
 
-class DictNode implements Comparable<DictNode> {
+public class DictNode implements Comparable<DictNode> {
     private String m_word;
     private String m_word_translation;
 
-    DictNode(String word, String word_translation) {
+    public DictNode(String word, String word_translation) {
         m_word = word;
         m_word_translation = word_translation;
     }
@@ -26,5 +26,10 @@ class DictNode implements Comparable<DictNode> {
         }
 
         return -1;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(new String("Word: %32s \tTranslation: %32s"), m_word, m_word_translation);
     }
 }
