@@ -1,9 +1,9 @@
 #include "Student.h"
 
-Student::Student(const char *full_name, unsigned short group_number)
+Student::Student(std::string const& full_name, unsigned short group_number)
                 : m_full_name(full_name), m_group_number(group_number) { }
 
-Student::Student(const char *full_name, unsigned short group_number, std::vector<unsigned short> const& rating)
+Student::Student(std::string const& full_name, unsigned short group_number, std::vector<unsigned short> const& rating)
                 : Student::Student (full_name, group_number)
 {
     setRating(rating);
@@ -11,7 +11,7 @@ Student::Student(const char *full_name, unsigned short group_number, std::vector
 
 void Student::operator <<(unsigned short mark)
 {
-    if (mark != Marks::Undefined)
+    if (mark > 1 and mark < 6)
         m_rating.push_back(Marks(mark));
 }
 
@@ -19,7 +19,7 @@ void Student::operator <<(std::vector<Marks> const &rating) { m_rating.insert(m_
 
 void Student::operator >>(std::vector<Marks> & rating) const { rating.insert(rating.end(), m_rating.begin(), m_rating.end()); }
 
-const char *Student::getFullName() const { return m_full_name; }
+std::string Student::getFullName() const { return m_full_name; }
 
 unsigned short Student::getGroupNumber() const { return m_group_number; }
 
