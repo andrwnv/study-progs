@@ -1,16 +1,57 @@
 import BinaryTree.BinaryTree;
+import Dictionary.DictNode;
 
-public class Main {
+import Dictionary.Dictionary;
+import javafx.application.Application;
+import javafx.scene.layout.BorderPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    private static final double PREF_MIN_WIDTH = 600;
+    private static final double PREF_MIN_HEIGHT = 220;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+        try {
+            Group group = new Group();
+
+            Parent content = FXMLLoader.load(getClass().getResource("GUI.fxml"));
+            BorderPane root = new BorderPane();
+            root.setCenter(content);
+
+            group.getChildren().add(root);
+            primaryStage.setScene(new Scene(group, PREF_MIN_WIDTH, PREF_MIN_HEIGHT));
+
+            primaryStage.showingProperty().addListener((observable, oldValue, showing) -> {
+
+                if (!showing)
+                    return;
+
+                // set fixed app size.
+                primaryStage.setMinHeight(primaryStage.getHeight());
+                primaryStage.setMaxHeight(primaryStage.getHeight());
+                primaryStage.setMinWidth(primaryStage.getWidth());
+                primaryStage.setMaxWidth(primaryStage.getWidth());
+
+                primaryStage.setTitle("Simple dictionary");
+
+            });
+
+            primaryStage.show();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
-        BinaryTree<Integer> test = new BinaryTree<Integer>();
-        test.addItem(10);
-        test.addItem(55);
-        test.addItem(2);
-        test.addItem(3);
-
-        test.deleteItem(10);
-
-        test.DFS_print();
+        launch(args); // main like view.
     }
+
 }

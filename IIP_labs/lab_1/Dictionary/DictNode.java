@@ -4,7 +4,7 @@ public class DictNode implements Comparable<DictNode> {
     private String m_word;
     private String m_word_translation;
 
-    public DictNode(String word, String word_translation) {
+    DictNode(String word, String word_translation) {
         m_word = word;
         m_word_translation = word_translation;
     }
@@ -13,7 +13,7 @@ public class DictNode implements Comparable<DictNode> {
         return m_word;
     }
 
-    public String getTranslation() {
+    String getTranslation() {
         return m_word_translation;
     }
 

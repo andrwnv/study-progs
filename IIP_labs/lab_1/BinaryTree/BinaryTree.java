@@ -97,7 +97,7 @@ public class BinaryTree< T extends Comparable<T> > {
         if (curr_item == null)
             return null;
 
-        if (value == curr_item.getData())
+        if (value.compareTo(curr_item.getData()) == 0)
             return curr_item.getData();
 
         return value.compareTo(curr_item.getData()) < 0 ? searchItem(curr_item.getLeftChild(), value)

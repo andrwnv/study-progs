@@ -13,13 +13,15 @@ public class Dictionary {
 
     private BinaryTree<DictNode> dict_data;
 
-    Dictionary() {
+    public Dictionary() {
         dict_data = new BinaryTree<DictNode>();
         Debugger.enableDebugger();
     }
 
     public String getTranslation(String word) {
-        return "";
+        var searched = dict_data.searchItem(new DictNode(word, ""));
+
+        return searched == null ? "" : searched.getTranslation();
     }
 
     public void addDictData(String file_path) {
