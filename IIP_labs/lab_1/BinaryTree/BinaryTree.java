@@ -117,20 +117,4 @@ public class BinaryTree< T extends Comparable<T> > {
         return value.compareTo(curr_item.getData()) < 0 ? searchItem(curr_item.getLeftChild(), value)
                                                         : searchItem(curr_item.getRightChild(), value);
     }
-
-    public void DFS_print() {
-        DFS_print(m_head);
-    }
-
-    private void DFS_print(Node<T> node) {
-        if (node == null)
-            return;
-
-        print(node.getData().toString());
-
-        DFS_print( node.getLeftChild()  );
-        DFS_print( node.getRightChild() );
-    }
-
-    private void print(String str) { System.out.println(str); }
 }
