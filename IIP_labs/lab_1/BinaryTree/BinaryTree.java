@@ -24,7 +24,20 @@ public class BinaryTree< T extends Comparable<T> > {
     }
 
     public int getSize() {
+        m_size = 0;
+        getSize(m_head);
+
         return m_size;
+    }
+
+    private void getSize(Node<T> node) {
+        if (node == null)
+                return;
+
+        m_size++;
+
+        getSize( node.getLeftChild()  );
+        getSize( node.getRightChild() );
     }
 
     public void clear() {
@@ -86,6 +99,7 @@ public class BinaryTree< T extends Comparable<T> > {
             return;
 
         m_head = deleteItem(m_head, value);
+
         --m_size;
     }
 
