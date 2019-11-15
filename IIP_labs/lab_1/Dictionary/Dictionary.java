@@ -8,12 +8,18 @@ import java.io.BufferedReader;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class Dictionary {
 
     private BinaryTree<DictNode> dict_data;
 
-    public Dictionary() {
+    public Dictionary(String s) {
         dict_data = new BinaryTree<DictNode>();
         Debugger.enableDebugger();
     }
@@ -24,21 +30,17 @@ public class Dictionary {
         return searched == null ? "" : searched.getTranslation();
     }
 
-    public void addDictData(String file_path) {
+    public void addDictData(String file_path) throws Exception {
 
-        String buff_line = "";
-        try {
-            FileReader file_reader     = new FileReader(file_path);
-            BufferedReader buff_reader = new BufferedReader(file_reader);
+        Object obj = new JSONParser().parse(new FileReader(file_path)); // Object obj = new JSONParser().parse(new FileReader("JSONExample.json"));
 
-            while ( (buff_line = buff_reader.readLine()) != null ) {
-                System.out.println(buff_line);
-            }
+        JSONObject jo = (JSONObject) obj;
 
-        } catch (FileNotFoundException ex) {
-            Debugger.log(String.format("[addDictData: FAIL] file %s cant be open.", file_path));
-        } catch (IOException ex) {
-            Debugger.log("[addDictData: FAIL] reading file error.");
+        JSONArray words_array = (JSONArray) jo.get("words");
+
+        for (Object o : words_array) {
+            JSONObject tmp = (JSONObject) o;
+            dict_data.addItem(new DictNode((String) tmp.get("word:"), (String) tmp.get("translation:")));
         }
     }
 

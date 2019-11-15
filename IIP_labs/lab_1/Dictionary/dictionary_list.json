@@ -1,0 +1,36 @@
+{
+    "words": [
+        {
+            "word:": "hello",
+            "translation:": "привет"
+        },
+        {
+            "word:": "yes",
+            "translation:": "да"
+        },
+        {
+            "word:": "bicycle",
+            "translation:": "велосипед"
+        },
+        {
+            "word:": "bird",
+            "translation:": "птица"
+        },
+        {
+            "word:": "black",
+            "translation:": "чёрный"
+        },
+        {
+            "word:": "board",
+            "translation:": "доска"
+        },
+        {
+            "word:": "body",
+            "translation:": "тело"
+        },
+        {
+            "word:": "box",
+            "translation:": "ящик"
+        },
+    ]
+}
