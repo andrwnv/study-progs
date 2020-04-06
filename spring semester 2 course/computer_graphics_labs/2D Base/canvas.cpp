@@ -1,6 +1,7 @@
 #include "canvas.h"
 
 #include <cmath>
+#include <cassert>
 
 #include <QPolygon>
 #include <QPainter>
@@ -118,120 +119,6 @@ void Canvas::drawFigure()
     QPolygon figure(_figureDots);
     painter->drawPolygon(figure);
 
-    reflectFigure();
-
-    // Обновляем pixmap.
-    _label->setPixmap(_pixmap);
-}
-
-void Canvas::scaleFigure(double scaleIndex)
-{
-    painter->setRenderHint(QPainter::Antialiasing, true); // Добавляем сглаживание для линии.
-
-    QPen pen(Qt::blue, 2, Qt::SolidLine);
-    painter->setPen(pen);
-
-    QVector< QPair<double, double> > rotationMatrix = {
-        { scaleIndex, 0 },
-        { 0, scaleIndex }
-    };
-
-    for (auto & point : _transformedFigureDots)
-    {
-        auto tmpPoint = point;
-
-        point.setX( tmpPoint.x() * rotationMatrix.at(0).first + tmpPoint.y() * rotationMatrix.at(0).second );
-        point.setY( tmpPoint.x() * rotationMatrix.at(1).first + tmpPoint.y() * rotationMatrix.at(1).second );
-    }
-
-    QPolygon figure(_transformedFigureDots);
-    painter->drawPolygon(figure);
-
-    // Обновляем pixmap.
-    _label->setPixmap(_pixmap);
-}
-
-void Canvas::rotateFigure(double angle)
-{
-    painter->setRenderHint(QPainter::Antialiasing, true); // Добавляем сглаживание для линии.
-
-    QPen pen(Qt::blue, 2, Qt::SolidLine);
-    painter->setPen(pen);
-
-    QVector< QPair<double, double> > rotationMatrix = {
-        {  std::cos(angle * 3.14), std::sin(angle * 3.14) },
-        { -std::sin(angle * 3.14), std::cos(angle * 3.14) }
-    };
-
-    for (auto & point : _transformedFigureDots)
-    {
-        auto tmpPoint = point;
-
-        point.setX( tmpPoint.x() * rotationMatrix.at(0).first + tmpPoint.y() * rotationMatrix.at(0).second );
-        point.setY( tmpPoint.x() * rotationMatrix.at(1).first + tmpPoint.y() * rotationMatrix.at(1).second );
-    }
-
-    QPolygon figure(_transformedFigureDots);
-    painter->drawPolygon(figure);
-
-    // Обновляем pixmap.
-    _label->setPixmap(_pixmap);
-}
-
-void Canvas::reflectFigure()
-{
-    painter->setRenderHint(QPainter::Antialiasing, true); // Добавляем сглаживание для линии.
-
-    QPen pen(Qt::blue, 2, Qt::SolidLine);
-    painter->setPen(pen);
-
-    QVector< QPair<double, double> > reflectionMatrix = {
-        { -1, 0 },
-        {  0, 1 }
-    };
-
-    for (auto & point : _transformedFigureDots)
-    {
-        auto tmpPoint = point;
-
-        if (reflectionMatrix.at(0).first < 0)
-            point.setX( width() + reflectionMatrix.at(0).first * tmpPoint.x() );
-        else if (reflectionMatrix.at(0).second < 0)
-            point.setY( height() + reflectionMatrix.at(1).second * tmpPoint.y());
-    }
-
-    QPolygon figure(_transformedFigureDots);
-    painter->drawPolygon(figure);
-
-    // Обновляем pixmap.
-    _label->setPixmap(_pixmap);
-}
-
-void Canvas::transferFigure(int trasferX, int transferY)
-{
-    painter->setRenderHint(QPainter::Antialiasing, true); // Добавляем сглаживание для линии.
-
-    QPen pen(Qt::blue, 2, Qt::SolidLine);
-    painter->setPen(pen);
-
-    QVector< QPair<int, int> > transferMatrix = {
-        { trasferX * _padding, 0  },
-        { 0, transferY * _padding }
-    };
-
-    QVector<QPoint> figureDotesCopy = _figureDots;
-
-    for (auto & point : figureDotesCopy)
-    {
-        auto tmpPoint = point;
-
-        point.setX( tmpPoint.x() + transferMatrix.at(0).first );
-        point.setY( tmpPoint.y() + transferMatrix.at(1).second );
-    }
-
-    QPolygon figure(figureDotesCopy);
-    painter->drawPolygon(figure);
-
     // Обновляем pixmap.
     _label->setPixmap(_pixmap);
 }
@@ -243,5 +130,111 @@ void Canvas::clearPixmap()
 }
 
 void Canvas::clearFigureChanges() { _transformedFigureDots = _figureDots; }
+
+void tprintf(const char* format) // base function
+{
+    qDebug() << format;
+}
+
+template <typename... Args>
+void Canvas::transform(Transform transformtaion, Args const& ... args)
+{
+    std::tuple<Args...> arguments((args)...);
+
+    painter->setRenderHint(QPainter::Antialiasing, true); // Добавляем сглаживание для линии.
+
+    QPen pen(Qt::blue, 2, Qt::SolidLine);
+    painter->setPen(pen);
+
+    // С помощью assert проверяем кол-во аргументов.
+    switch (transformtaion)
+    {
+        case Transform::Rotate: {
+            assert(sizeof... (args) == 1);
+
+            QVector< QPair<double, double> > rotationMatrix = {
+                {   std::cos(std::get<0>(arguments) * 3.14), std::sin(std::get<0>(arguments) * 3.14) },
+                { - std::sin(std::get<0>(arguments) * 3.14), std::cos(std::get<0>(arguments) * 3.14) }
+            };
+
+            for (auto & point : _transformedFigureDots)
+            {
+                auto tmpPoint = point;
+
+                point.setX( tmpPoint.x() * rotationMatrix.at(0).first + tmpPoint.y() * rotationMatrix.at(0).second );
+                point.setY( tmpPoint.x() * rotationMatrix.at(1).first + tmpPoint.y() * rotationMatrix.at(1).second );
+            }
+
+            break;
+        }
+
+        case Transform::Reflect: {
+            assert(sizeof... (args) == 0);
+
+            QVector< QPair<double, double> > reflectionMatrix = {
+                { -1, 0 },
+                {  0, 1 }
+            };
+
+            for (auto & point : _transformedFigureDots)
+            {
+                auto tmpPoint = point;
+
+                if (reflectionMatrix.at(0).first < 0)
+                    point.setX( width() + reflectionMatrix.at(0).first * tmpPoint.x() );
+                else if (reflectionMatrix.at(0).second < 0)
+                    point.setY( height() + reflectionMatrix.at(1).second * tmpPoint.y());
+            }
+
+            break;
+        }
+
+        case Transform::Scale: {
+            assert(sizeof... (args) == 1);
+
+            QVector< QPair<int, int> > scaleMatrix = {
+                { std::get<0>(arguments), 0 },
+                { 0, std::get<0>(arguments) }
+            };
+
+            for (auto & point : _transformedFigureDots)
+            {
+                auto tmpPoint = point;
+
+                point.setX( tmpPoint.x() * scaleMatrix.at(0).first + tmpPoint.y() * scaleMatrix.at(0).second );
+                point.setY( tmpPoint.x() * scaleMatrix.at(1).first + tmpPoint.y() * scaleMatrix.at(1).second );
+            }
+
+            break;
+        }
+
+        case Transform::Transfer: {
+            assert(sizeof... (args) == 2);
+
+            QVector< QPair<int, int> > transferMatrix = {
+                { std::get<0>(arguments) * _padding, 0 },
+                { 0, std::get<1>(arguments) * _padding }
+            };
+
+            QVector<QPoint> figureDotesCopy = _figureDots;
+
+            for (auto & point : figureDotesCopy)
+            {
+                auto tmpPoint = point;
+
+                point.setX( tmpPoint.x() + transferMatrix.at(0).first );
+                point.setY( tmpPoint.y() + transferMatrix.at(1).second );
+            }
+
+            break;
+        }
+    }
+
+    QPolygon figure(_transformedFigureDots);
+    painter->drawPolygon(figure);
+
+    // Обновляем pixmap.
+    _label->setPixmap(_pixmap);
+}
 
 

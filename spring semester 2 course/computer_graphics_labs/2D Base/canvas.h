@@ -10,17 +10,24 @@ class Canvas : public QWidget
     Q_OBJECT
 
 public:
+    enum class Transform
+    {
+        Rotate,
+        Reflect,
+        Scale,
+        Transfer
+    };
+
+public:
     explicit Canvas(QWidget *parent = nullptr);
     void drawAxis();
     void drawFigure();
 
-    void scaleFigure(double scaleIndex);
-    void rotateFigure(double angle);
-    void reflectFigure();
-    void transferFigure(int trasferX, int transferY);
-
     void clearPixmap();
     void clearFigureChanges();
+
+    template <typename... Args>
+    void transform(Transform transformtaion, Args const& ... args);
 
 private:
     QPainter* painter;
