@@ -47,7 +47,7 @@ function checkLangRules() {
     let index = 0;
 
     if (value[index] === '0') {
-        outputHolder.innerHTML = '[q' + q + ', ' + value + ', S]' + '<br>';
+        outputHolder.innerHTML += `[q${q}, ${value}, S`;
         index++;
     } else {
         errorMessage();
@@ -57,13 +57,12 @@ function checkLangRules() {
     for (index; index < value.length; index++) {
         if (value[index] === '1' && value[index + 1] === '0') {
             q = 2;
-            if (index !== value.length) {
-                outputHolder.innerHTML += '[q' + q + ', ' + printFrom(value, index) + ', B]' + '<br>';
-            }
+            if (index !== value.length)
+                outputHolder.innerHTML += `[q${q}, ${printFrom(value, index)}, B`;
         } else if (value[index] === '0') {
             if (q < 2 && value[index] === '0') {
                 q = 1;
-                outputHolder.innerHTML += '[q' + q + ', ' + printFrom(value, index) + ', AB]' + '<br>';
+                outputHolder.innerHTML += `[q${q}, ${printFrom(value, index)}, AB`;
             }
         } else {
             errorMessage();
