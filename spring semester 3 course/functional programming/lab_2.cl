@@ -1,26 +1,51 @@
-
-; Task 1. (fibonacci)
-(defun task-1 (n f1 f2)
-    (if (= n 0)
-        f1
-        (task-1 (1- n) f2 (+ f1 f2))
-    )
-)
-
-;Task 2. (Count atoms)
-(defun task-2 (_list)
-    (if _list
-        (+ (if (and (atom (car _list)) 
-                    (not (equal (car _list) NIL)))
-                1
-                (task-2 (car _list)))
-            (task-2 (cdr _list))
+; Task 1
+(defun _additional (_cur _nums _sybms)
+    (cond 
+        ((null _cur)
+            (cons _nums (cons _sybms '()))
         )
-        0
+        ((numberp (car _cur))
+            ((lambda()
+                (push (car _cur) _nums)
+                (_additional (cdr _cur) _nums _sybms)
+            ))
+        )
+        (t
+            ((lambda()
+                (push (car _cur) _sybms)
+                (_additional (cdr _cur) _nums _sybms)
+            ))
+        )
     )
 )
 
-(format t "Result of task 1 = ~d ~%~%"(task-1 15 1 1))
-(format t "Result of task 2 = ~d atoms~%" (task-2 (list (list "gazelle") 1 NIL "tiger")))
-(format t "Result of task 2 = ~d atoms~%" (task-2 (list)))
+(defun task-1 (_list)
+    (_additional _list '() '())
+)
 
+(print 
+    (task-1 '(1 2 3 "b" "5")))
+
+
+
+; Task 2
+(defun is-not-num (elem)
+    (not (numberp elem))
+)
+
+(defun remove-not-nums (_list)
+    (cond 
+        ((null _list) 
+            nil)
+        ((listp (car _list))
+            (cons (remove-not-nums (car _list))
+                  (remove-not-nums (cdr _list))))
+        ((is-not-num (car _list)) 
+            (remove-not-nums (cdr _list)))
+        (t 
+            (cons (car _list) (remove-not-nums (cdr _list))))
+    )
+)
+
+(print 
+    (remove-not-nums '(1 2 3 (1 "a" 3 (1 "3" 5)))))
