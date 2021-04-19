@@ -2,7 +2,7 @@ masm
 model small 
 
 .data
-    message db 'Hello AMS$'
+    message db 'Hello world, ASM!$'
 
 .stack
     db 256 dup ('?')
@@ -19,5 +19,4 @@ model small
         int 21h
 
     main endp
-
 end main
