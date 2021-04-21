@@ -1,3 +1,5 @@
+; for compile tasm.exe asm_file obj_name.obj
+; tlink obj_name.obj /t
 CSEG segment 'code'
 assume cs:CSEG, ds:CSEG, es:CSEG, ss:CSEG ; CSEG - ??????????? ???????
 
