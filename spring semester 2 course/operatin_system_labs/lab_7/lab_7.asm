@@ -1,7 +1,6 @@
 data segment para public 'data'
     arr db 2, 5 , 2, 5, 4, 5, 6, 5, 6
-    arr_size dw 9
-    res_arr db 9 dup (0)
+    arr_size=$-arr
 data ends
 
 stk segment stack
@@ -27,9 +26,9 @@ code segment para 'code'
     xor bx, bx
     xor dx, dx
     
-    cld  
+    cld
     lea si, arr
-    lea di, res_arr
+    lea di, arr
     mov cx, arr_size
     
     arr_loop:
@@ -44,18 +43,8 @@ code segment para 'code'
             loop arr_loop
         
     exit:
-        ;mov si, offset res_arr 
-        ;mov cx, arr_size
-        
-        ;print_loop:
-        ;    mov ax, [si]          
-        ;    print ax, dx
-        ;    
-        ;    add si, 1h
-        ;    loop print_loop
-        
         cld
-        lea si, res_arr
+        lea si, arr
         mov cx, arr_size
         
         print_loop:
