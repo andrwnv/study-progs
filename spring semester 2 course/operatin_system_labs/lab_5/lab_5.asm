@@ -29,15 +29,23 @@ code segment para 'code'
             mov ax, [si]
             test al, 1
             jnz if_odd
-            xor ax, ax
+            mov [si], 0
             
         if_odd:
-            print ax, dx
-            
             add si, 4h
             loop arr_loop
         
         prog_end:
+            mov si, offset arr 
+            mov cx, arr_size
+            
+            print_loop:
+                mov ax, [si]          
+                print ax, dx
+                
+                add si, 4h
+                loop print_loop
+        
             mov ax, 4c00h
             int 21h
     main endp
