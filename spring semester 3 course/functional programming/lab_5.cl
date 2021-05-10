@@ -40,7 +40,7 @@
 
 
 
-(defun get-shit (subtree) 
+(defun get-shit (subtree) ; find subtree
     (mapcan 
         (lambda (x) 
             (if (not (= (length x) 1))
@@ -51,12 +51,10 @@
     )
 )
 
-(defun test1 (tree res)
+(defun test1 (tree res) ; get all subtree (6 50 ...)
     (cons  
         (mapcan
             (lambda (x)
-                ; (print x)
-
                 (cond
                     ((not (listp (car x)))
                         (get-shit (car (cdr x)))
@@ -69,7 +67,7 @@
     )
 )
 
-(defun test2 (tree res)
+(defun test2 (tree res) ; get (3 2 1 ...)
     (cons  
         (mapcan
             (lambda (x)
@@ -81,14 +79,7 @@
     )
 )
 
-(defun kiborg-ubiyca (tree)
-    (concat-lists (car(test1 (cdr tree) '())) (car(test2 (cdr tree) '())))
-)
-
-; (print (kiborg-ubiyca _tree))
-
-
-(defun kiborg-ubiyca-2 (tree)
+(defun kiborg-ubiyca-2 (tree) ; find max subtree
     (setq prev_len '())
     (mapcar 
         (lambda (x)
@@ -98,7 +89,10 @@
                 )
             )
         )
-        (kiborg-ubiyca tree)
+        (concat-lists
+            (list tree)
+            (concat-lists (car(test1 (cdr tree) '())) (car(test2 (cdr tree) '())))
+        )
     )
 
     prev_len
