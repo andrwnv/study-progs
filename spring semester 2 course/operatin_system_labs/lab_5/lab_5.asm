@@ -22,28 +22,28 @@ code segment para 'code'
         mov ds, ax
         
         mov cx, arr_size
-        
-        mov si, offset arr 
+
+        mov bx, offset arr
         
         arr_loop:
-            mov ax, [si]
+            mov ax, [bx]
             test al, 1
             jnz if_odd
-            mov [si], 0
+            mov [bx], 0
             
         if_odd:
-            add si, 4h
+            add bx, 4h
             loop arr_loop
         
         prog_end:
-            mov si, offset arr 
+            mov bx, offset arr 
             mov cx, arr_size
             
             print_loop:
-                mov ax, [si]          
+                mov ax, [bx]          
                 print ax, dx
                 
-                add si, 4h
+                add bx, 4h
                 loop print_loop
         
             mov ax, 4c00h
