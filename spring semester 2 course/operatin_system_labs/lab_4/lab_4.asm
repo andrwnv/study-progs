@@ -1,13 +1,8 @@
 ;var 5
 
-;1. write proc for input
-;2. write proc for output
-;3. write calc macro
-;   params in stack
-
 data segment para public 'data'
     text db 'Input two number w/o space:$'
-    new_line db 13, 10, '$' ; 13&10 need for move cursor to start of program, btw when prog start we have hidden commands
+    new_line db 13, 10, '$'
 data ends 
 
 stk segment stack
@@ -17,7 +12,7 @@ stk ends
 extrn input_proc:near
 extrn output_proc:near
 
-mask macro bx, ax, dx
+calc macro bx, ax, dx
 
     mov al, dh
     add al, dl
@@ -39,15 +34,18 @@ code segment para 'code'
     main proc
         assume cs:code, ds:data, ss:stk
         
+        push dx
         call input_proc
+        xor dx, dx
+        pop dx
         
-        mask bx, ax, dx
-    
-    push ax
-    xor ax, ax
+        calc bx, ax, dx
+
+        push ax
+        xor ax, ax
 
         call output_proc
-            
+
         mov ax, 4c00h
         int 21h
     main endp

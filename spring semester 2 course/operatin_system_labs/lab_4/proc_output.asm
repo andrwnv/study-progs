@@ -2,7 +2,7 @@ public output_proc
 
 data segment para public 'data'
     text db 'Input two number w/o space:$'
-    new_line db 13, 10, '$' ; 13&10 need for move cursor to start of program, btw when prog start we have hidden commands
+    new_line db 13, 10, '$'
 data ends 
 
 code segment para public 'code'
@@ -12,15 +12,14 @@ code segment para public 'code'
     
     output_proc proc near
         push bp
-    mov bp,sp
-    
-    mov ax, [bp+4]
+        mov bp, sp
+        
+        mov ax, [bp+4]
 
         m3:
-            mov cx, 10h ;(10h = 16 in dec)
+            mov cx, 10h
             mov bx, ax
             
-            ; print new line
             mov ax, data
             mov ds, ax
             mov ah, 9h
@@ -34,10 +33,11 @@ code segment para public 'code'
             mov ah, 02h
             int 21h
             loop m4
-    mov sp,bp ;?????????????? sp
-    pop bp ;?????????????? bp
-    ret
+        
+        mov sp, bp 
+        pop bp 
+        ret
+        
     output_proc endp
-
 code ends
 end output_proc
