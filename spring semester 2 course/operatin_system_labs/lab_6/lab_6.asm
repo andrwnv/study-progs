@@ -3,22 +3,27 @@
 .code
 
 public _asmproc
-_asmproc proc C arr:word, arr_size:word
-    mov cx, arr_size
-    mov bx, arr
+_asmproc proc C matrix:word, nSize:word
+    mov bx, matrix
+    mov cx, nSize
+    mov ax, nSize
 
-    arr_loop:
-        test word ptr [bx], 1
-        jnz if_odd
-        jmp if_even
-    
-    if_odd:
-        mov word ptr [bx], 0
-        
-    if_even:
-        add bx, 2h
-        loop arr_loop
+    out_loop_task:
+        mov cx, nSize
 
+        inner_loop_task:
+            test word ptr [bx], 1h
+            jnz if_odder
+            mov word ptr [bx], 0h
+            
+            if_odder:
+                add bx, 2h
+                dec cx
+                jnz inner_loop_task
+
+        dec ax
+        jnz out_loop_task
     ret
 _asmproc endp
+
 end
