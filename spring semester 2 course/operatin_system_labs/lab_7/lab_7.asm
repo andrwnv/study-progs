@@ -1,87 +1,70 @@
 data segment para public 'data'
-    arr db 1, 2, 3
-        db 5, 152, 7
-        db 9, 2, 13
-    nSize=3
-data ends
+    message_input db 'Input data =', 13, 10, '$'
+    message_output db 'Output data =', 13, 10, '$'
+    
+    matrix db 1, 2, 3
+           db 5, 152, 7
+           db 9, 2, 13
+          
+    nSize = 3
+data ends 
 
 stk segment stack
     db 256 dup ('?')
 stk ends
 
-print macro ax, dx
-    mov dl, 30h
-    add dl, al
-    mov ah, 2h
-    int 21h
-endm
-
 code segment para 'code'
-    assume cs:code, ds:data, ss:stk, es: data
-    main proc
-    
-    mov ax, data
-    mov ds, ax
-    mov es, ax
-    
-    xor cx, cx
-    xor bx, bx
-    xor dx, dx
-    
-    cld
-    lea si, arr
-    lea di, arr
-    
-    mov ch, nSize
-    arr_loop_1:
-        mov cl, nSize
+    main proc 
+        assume cs:code, ds:data, ss:stk, es: data
         
-        arr_loop_2:
-            lodsb
+        mov ax, data
+        mov ds, ax
+        mov es, ax
         
-            test al, 1
-            jnz if_odd
-            xor ax, ax
-
-            if_odd:
-                stosb
-                dec cl
-                jnz arr_loop_2
-        dec ch
-        jnz arr_loop_1
+        mov dx, offset message_input
+        mov ah, 9h
+        int 21h
         
-    exit:
-        cld
-        lea si, arr
+        cld 
+        lea si, matrix
+        
+        call print_matrix
+        
+        cld 
+        lea si, matrix
+        lea di, matrix
+        
+        mov ch, offset nSize
+        
+        out_loop_task:
+            mov cl, offset nSize
 
-        mov ch, nSize
-        arr_loop_12:
-            mov cl, nSize
-
-            arr_loop_22:
-                mov ah, 2h
-                mov dl, 20h
-                int 21h
-                
+            inner_loop_task:
                 lodsb
-                call print_decimal
+        
+                test al, 1
+                jnz if_odd
+                xor ax, ax
 
-                dec cl
-                jnz arr_loop_22
-            
-            mov ah, 2h
-            mov dl, 13
-            int 21h
-            
-            mov dl, 10
-            int 21h
-                
+                if_odd:
+                    stosb
+                    dec cl
+                    jnz inner_loop_task
+
             dec ch
-            jnz arr_loop_12
+            jnz out_loop_task
+        
+        mov dx, offset message_output
+        mov ah, 9h
+        int 21h
+        
+        cld 
+        lea si, matrix
+        
+        call print_matrix
             
         mov ax, 4c00h
         int 21h
-     
     main endp
     
     print_decimal proc
@@ -117,6 +100,47 @@ code segment para 'code'
 
         ret
     print_decimal endp
+    
+    print_matrix proc
+        assume cs:code, ds:data, ss:stk, es: data
+    
+        push ax
+        push dx
+
+        xor cx, cx
+        
+        mov ch, offset nSize
+        
+        out_loop:
+            mov cl, offset nSize
+
+            inner_loop:
+                mov ah, 2h
+                mov dl, 20h
+                int 21h
+                
+                lodsb
+                
+                call print_decimal
+                
+                add bx, 4h
+                dec cl
+                jnz inner_loop
+            
+            mov ah, 2h
+            mov dl, 13
+            int 21h
+            
+            mov dl, 10
+            int 21h
+            
+            dec ch
+            jnz out_loop
+            
+        pop dx
+        pop ax
+
+        ret
+    print_matrix endp
 code ends
 end main
-
