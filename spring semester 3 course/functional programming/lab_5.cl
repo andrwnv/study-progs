@@ -16,7 +16,7 @@
             (
                 (5)
                 (6 ((11) (12)))
-                (50 ((71) (80)))
+                (50 ((71) (80) (17)))
             )    
         )
         (1
@@ -25,77 +25,45 @@
                 (15)
             )    
         )
-        (5 
-            ()
-        )
+        (5)
     )
 )
 
-(defun concat-lists (list1 list2)
-    (if (null list1)
-        list2
-        (cons (car list1) (concat-lists (cdr list1) list2))
-    ) ; if
+(defun check-every-item (list) 
+    (if (null list)
+        t
+        (if (not (atom (first list)))
+            nil
+            (check-every-item (cdr list))
+        ) ; if  
+    ) ; if      
 ) ; defun
 
+(defun max-breadth (lst)
+    (cond
+        ((atom lst) 0) ; 1
+        ((check-every-item lst) (length lst)) ; 2 
+        (t  
+            (+
+                (max-breadth (car lst))
+                (max-breadth (remove-if-not #'listp (cdr lst))))
+        ) ; t
+    ) ; cond
+) ; defun
 
+(defun find-max-node-count (lst)
+    (setq res '(0 ()))
 
-(defun get-shit (subtree) ; find subtree
     (mapcan 
         (lambda (x) 
-            (if (not (= (length x) 1))
-                (list x) ; (print x)
-            )
-        )
-        subtree
-    )
-)
-
-(defun test1 (tree res) ; get all subtree (6 50 ...)
-    (cons  
-        (mapcan
-            (lambda (x)
-                (cond
-                    ((not (listp (car x)))
-                        (get-shit (car (cdr x)))
-                    )
+                (if (< (car res) (max-breadth x))
+                    (setq res (list (max-breadth x) x))
                 )
-            )
-            tree
         )
-        res
-    )
-)
-
-(defun test2 (tree res) ; get (3 2 1 ...)
-    (cons  
-        (mapcan
-            (lambda (x)
-                (list x)
-            )
-            tree
-        )
-        res
-    )
-)
-
-(defun kiborg-ubiyca-2 (tree) ; find max subtree
-    (setq prev_len '())
-    (mapcar 
-        (lambda (x)
-            (cond 
-                ((> (length (car (cdr x))) (length (car (cdr prev_len))))
-                    (setq prev_len x)
-                )
-            )
-        )
-        (concat-lists
-            (list tree)
-            (concat-lists (car(test1 (cdr tree) '())) (car(test2 (cdr tree) '())))
-        )
+        (cdr _tree)
     )
 
-    prev_len
+    (cdr res)
 )
 
-(print (kiborg-ubiyca-2 _tree))
+(print (find-max-node-count _tree))
