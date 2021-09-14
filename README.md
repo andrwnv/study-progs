@@ -11,5 +11,5 @@
 ##### `operatin_system_labs (ASM)` folder
 ##### `taify_labs (theory of automata and formal languages)` folder
 
-#### Spring semester 2 course:
+#### Spring semester 3 course:
 ##### `programming_labs (functional programming)` folder
