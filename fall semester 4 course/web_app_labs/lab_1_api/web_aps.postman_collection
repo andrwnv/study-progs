@@ -1,0 +1,299 @@
+{
+	"info": {
+		"_postman_id": "0f568068-0f17-4c50-addf-146cd6ee02df",
+		"name": "web aps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "all_users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3080/api/user/all_users",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3080",
+							"path": [
+								"api",
+								"user",
+								"all_users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uesr create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Andrew\",\r\n    \"lastName\": \"Glazunov\",\r\n    \"age\": 21,\r\n    \"eMail\": \"Glazunovand@ya.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3080/api/user/create",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3080",
+							"path": [
+								"api",
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3080/api/user/17",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3080",
+							"path": [
+								"api",
+								"user",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user info",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eMail\": \"testqwerty@mail.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3080/api/user/update/17",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3080",
+							"path": [
+								"api",
+								"user",
+								"update",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user del",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3080/api/user/delete?id=24",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3080",
+							"path": [
+								"api",
+								"user",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "24"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "records",
+			"item": [
+				{
+					"name": "all_recs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3080/api/record/all_records",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3080",
+							"path": [
+								"api",
+								"record",
+								"all_records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "task create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 24,\r\n    \"title\": \"TEST TASK 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3080/api/record/create",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3080",
+							"path": [
+								"api",
+								"record",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rec del",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3080/api/record/delete?id=8",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3080",
+							"path": [
+								"api",
+								"record",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rec info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3080/api/record/9",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3080",
+							"path": [
+								"api",
+								"record",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rec update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"desc\": \"add some test desc\",\r\n    \"done\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3080/api/record/update/9",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3080",
+							"path": [
+								"api",
+								"record",
+								"update",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

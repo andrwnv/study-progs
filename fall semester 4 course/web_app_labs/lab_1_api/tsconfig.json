@@ -1,0 +1,23 @@
+{
+   "compilerOptions": {
+      "module": "commonjs",
+      "rootDir": "./",
+      "outDir": "./build",
+      "esModuleInterop": true,
+      "strict": true,
+      "target": "es2017",
+      "declaration": true,
+      "declarationMap": true,
+      "inlineSourceMap": true,
+      "inlineSources": true,
+      "allowJs": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true
+   },
+   "exclude": [
+      "node_modules",
+      "./build/**/*",
+      "./plugins/**/*",
+      "./typings/**/*"
+   ]
+}
