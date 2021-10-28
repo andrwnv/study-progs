@@ -1,0 +1,51 @@
+.App {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #041b2d;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+textarea {
+    width: 70vw;
+    height: 70vh;
+    resize: none;
+
+    margin-bottom: 5vh;
+    margin-top: 5vh;
+
+    border-radius: 10px;
+}
+
+.save_button {
+    width: 10vw;
+
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: aliceblue;
+
+    background: none;
+    font: inherit;
+    outline: inherit;
+
+    border-radius: 5px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: #F0F8FFFF;
+    margin-bottom: 3vh;
+    border-radius: 5px;
+}
