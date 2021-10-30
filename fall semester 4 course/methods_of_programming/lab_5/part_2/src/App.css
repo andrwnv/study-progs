@@ -1,0 +1,39 @@
+.App {
+  text-align: center;
+}
+
+.box {
+  width: 50px;
+  height: 50px;
+  border: #ff409d 2px solid;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.long-horizontal-box {
+  width: 250px;
+  height: 50px;
+  border: #ff409d 2px solid;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.long-vertical-box {
+  width: 50px;
+  height: 150px;
+  border: #ff409d 2px solid;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+/*.box:hover {*/
+/*  background-color: #acd6ff;*/
+/*}*/
+
+/*.long-horizontal-box:hover {*/
+/*  background-color: #acd6ff;*/
+/*}*/
+
+/*.long-vertical-box:hover {*/
+/*  background-color: #acd6ff;*/
+/*}*/
