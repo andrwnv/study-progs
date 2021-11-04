@@ -49,26 +49,28 @@ function App() {
     return (
         <div className = 'App'>
             {/* Col 1 */}
-            <div style={{width: '600px', display: 'flex', justifyContent: 'space-between'}}>
+            <div style={{width: '400px', display: 'flex', justifyContent: 'space-between'}}>
                 <Box
                     jsxObject={<div style={isCanColorize(1) ? {backgroundColor: pressedColor} : {}} className='box'/>}
                     handler={handlePress}
                     id={1}
                 />
-                <Box
-                    jsxObject={<div style={isCanColorize(2) ? {backgroundColor: pressedColor} : {}} className='long-horizontal-box'/>}
-                    handler={handlePress}
-                    id={2}
-                />
-                <Box
-                    jsxObject={<div style={isCanColorize(3) ? {backgroundColor: pressedColor} : {}} className='box'/>}
-                    handler={handlePress}
-                    id={3}
-                />
+                <div style={{display: 'flex'}}>
+                    <Box
+                        jsxObject={<div style={isCanColorize(2) ? {backgroundColor: pressedColor, width: '338px'} : {width: '338px'}} className='long-horizontal-box'/>}
+                        handler={handlePress}
+                        id={2}
+                    />
+                    <Box
+                        jsxObject={<div style={isCanColorize(3) ? {backgroundColor: pressedColor} : {}} className='box'/>}
+                        handler={handlePress}
+                        id={3}
+                    />
+                </div>
             </div>
 
             {/* Col 2 */}
-            <div style={{width: '600px', display: 'flex', justifyContent: 'space-between'}}>
+            <div style={{width: '300px', display: 'flex', justifyContent: 'space-between'}}>
                 <div style={{display: 'table'}}>
                     <Box jsxObject={<div style={isCanColorize(4) ? {backgroundColor: pressedColor} : {}} className= {'long-vertical-box'}/>}  handler={handlePress} id={4}/>
                 </div>
@@ -76,7 +78,7 @@ function App() {
                 <div style={{display: 'flex', height: '170px', flexDirection: 'column'}}>
                     <div style={{width: '435px', display: 'flex', justifyContent: 'space-between'}}>
                         <Box
-                            jsxObject={<div style={isCanColorize(5) ? {backgroundColor: pressedColor} : {}} className='box'/>}
+                            jsxObject={<div style={isCanColorize(5) ? {backgroundColor: pressedColor} : { }} className='box'/>}
                             handler={handlePress}
                             id={5}
                         />
@@ -112,25 +114,26 @@ function App() {
             </div>
 
             {/* Col 3 */}
-            <div style={{width: '600px', display: 'flex', justifyContent: 'space-between'}}>
-                <div style={{display: 'flex', justifyContent: 'space-between', width: '240px'}}>
-                    <Box
-                        jsxObject={<div style={isCanColorize(11) ? {backgroundColor: pressedColor} : {}} className='box'/>}
-                        handler={handlePress}
-                        id={11}
-                    />
+            <div style={{width: '600px', display: 'flex'}}>
+                <Box
+                    jsxObject={<div style={isCanColorize(11) ? {backgroundColor: pressedColor} : {}} className='box'/>}
+                    handler={handlePress}
+                    id={11}
+                />
+
+                <div style={{display: 'flex', justifyContent: 'space-between', width: '435px'}}>
                     <Box
                         jsxObject={<div style={isCanColorize(12) ? {backgroundColor: pressedColor} : {}} className='box'/>}
                         handler={handlePress}
                         id={12}
                     />
-                </div>
 
-                <Box
-                    jsxObject={<div style={isCanColorize(13) ? {backgroundColor: pressedColor} : {}} className='box'/>}
-                    handler={handlePress}
-                    id={13}
-                />
+                    <Box
+                        jsxObject={<div style={isCanColorize(13) ? {backgroundColor: pressedColor} : {}} className='box'/>}
+                        handler={handlePress}
+                        id={13}
+                    />
+                </div>
             </div>
         </div>
     );
