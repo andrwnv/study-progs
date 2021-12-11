@@ -1,0 +1,6 @@
+drug(amoxicillin, [flu, cold, angina], [pregnant, child, allergy]).
+drug(ibuprofen, [flu, cold, measles, pneumonia], [intolerance, allergy]).
+drug(aspirin, [flu, measles, herpes], [pregnant, heart]).
+drug(macrolides, [covid, pneumonia], [pregnant]).
+drug(acyclovir, [herpes, cold], [child, heart, kidneys]).
+drug(arbidol, [covid, flu], [allergy]).
